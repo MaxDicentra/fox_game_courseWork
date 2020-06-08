@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - spikes
+  - limiter
+  - turtle_enemy
+  - gem
+  - lifePotion
+  - strawberry
+  - jam
+  - door
+  - scull_enemy
+  - offWay
+  - checkpoint
+  - fox_player
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - bacground_movable
+  - ground
+  - player
+  - decoration
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: fixed_background
+    uniqueID: 2793192083
+    locked: 0
+  - name: background_decor
+    uniqueID: 1041688551
+    locked: 0
+  - name: main
+    uniqueID: 2198834549
+    locked: 0
+  - name: decoration
+    uniqueID: 636804947
+    locked: 0
