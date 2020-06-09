@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class scull_enemy : MonoBehaviour
 {
-    public float speed = 1f;
-    float direction = -1f;
+    private float speed = 1f;
+    private float direction = -1f;
     private Animator animator;
     private Rigidbody2D rigidBody;
 

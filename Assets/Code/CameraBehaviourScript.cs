@@ -3,9 +3,9 @@ using System.Collections;
 
 public class CameraBehaviourScript : MonoBehaviour
 {
-    public float dampTime = 0.15f;
+    private float dampTime = 0.15f;
     private Vector3 velocity = Vector3.zero;
-    public Transform target;
+    private Transform target;
     Camera camera;
 
     void Start()

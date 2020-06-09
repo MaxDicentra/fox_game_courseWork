@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CheckpointController : MonoBehaviour
 {
-    public Sprite treeUnchecked;
-    public Sprite treeChecked;
+    private Sprite treeChecked;
     private SpriteRenderer sp;
 
     public bool checkpointReached;
@@ -13,7 +12,6 @@ public class CheckpointController : MonoBehaviour
     void Start()
     {
         sp = GetComponent<SpriteRenderer>();
-
     }
 
     // Update is called once per frame

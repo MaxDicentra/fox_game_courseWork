@@ -4,10 +4,10 @@ using System.Threading;
 
 public class walkingEnemy : MonoBehaviour
 {
-    public float speed = 1f;
-    float direction = -1f;
-    public bool angry = false;
-    Timer timer;
+    private float speed = 1f;
+    private float direction = -1f;
+    private bool angry = false;
+    private Timer timer;
     private Animator animator;
     private Rigidbody2D rigidbody;
 

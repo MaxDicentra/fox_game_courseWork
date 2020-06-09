@@ -7,23 +7,23 @@ public class playerScript : MonoBehaviour
 {
     private Animator animator;
 
-    public float maxSpeed = 5f;
-    public float jumpForce = 500f;
-    bool facingRight = true;
-    bool grounded = false;
-    public Transform groundCheck;
-    public float groundRadius = 0.2f;
-    public LayerMask whatIsGround;
+    private float maxSpeed = 5f;
+    private float jumpForce = 500f;
+    private bool facingRight = true;
+    private bool grounded = false;
+    private Transform groundCheck;
+    private float groundRadius = 0.2f;
+    private LayerMask whatIsGround;
     private Timer timer;
 
     private SpriteRenderer sprite;
     private Rigidbody2D rigidBody;
-    public float move;
-    public Vector3 respawnPoint;
+    private float move;
+    private Vector3 respawnPoint;
 
-    public int lives;
-    public int health;
-    public int gems;
+    private int lives;
+    private int health;
+    private int gems;
 
 
     // Use this for initialization
