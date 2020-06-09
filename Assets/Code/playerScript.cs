@@ -5,26 +5,51 @@ using System.Threading;
 
 public class playerScript : MonoBehaviour
 {
-    private Animator animator;
+    public Animator animator;
+    public Transform groundCheck;
+    public Rigidbody2D rigidBody;
 
     private float maxSpeed = 5f;
     private float jumpForce = 500f;
     private bool facingRight = true;
     private bool grounded = false;
-    private Transform groundCheck;
+
     private float groundRadius = 0.2f;
     private LayerMask whatIsGround;
     private Timer timer;
 
     private SpriteRenderer sprite;
-    private Rigidbody2D rigidBody;
     private float move;
     private Vector3 respawnPoint;
+
 
     private int lives;
     private int health;
     private int gems;
 
+    public int Lives
+    {
+        get
+        {
+            return lives;
+        }
+    }
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+    }
+
+    public int Gems
+    {
+        get
+        {
+            return gems;
+        }
+    }
 
     // Use this for initialization
     void Start()
@@ -37,6 +62,7 @@ public class playerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         respawnPoint = transform.position;
+       
     }
 
     // Update is called once per frame
@@ -186,12 +212,5 @@ public class playerScript : MonoBehaviour
     void killPain()
     {
         animator.SetInteger("isHurt", 0);
-    }
-
-    void OnGUI()
-    {
-        GUI.Box(new Rect(10,10,100,100), "Lives: " + lives
-            + '\n' + "Gems: " + gems
-            + '\n' + "Health: " + health);
     }
 }
