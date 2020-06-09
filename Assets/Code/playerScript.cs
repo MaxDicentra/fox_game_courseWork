@@ -7,6 +7,7 @@ public class playerScript : MonoBehaviour
 {
     private Animator animator;
 
+    [SerializeField] Rigidbody2D rigidBody;
     [SerializeField] float maxSpeed = default;
     [SerializeField] float jumpForce = default;
     private bool facingRight = true;
@@ -58,6 +59,7 @@ public class playerScript : MonoBehaviour
 
         animator = GetComponent<Animator>();
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        rigidBody = GetComponent<Rigidbody2D>();
         respawnPoint = transform.position;
     }
 
@@ -73,10 +75,10 @@ public class playerScript : MonoBehaviour
     {
         if (grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
+            rigidBody.AddForce(new Vector2(0f, jumpForce));
             grounded = false;
         }
-        GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
 
         if (move > 0 && !facingRight)
         {
@@ -97,7 +99,7 @@ public class playerScript : MonoBehaviour
             Application.LoadLevel(Application.loadedLevel);
         }
 
-        animator.SetFloat("Speed", Math.Abs(GetComponent<Rigidbody2D>().velocity.x));
+        animator.SetFloat("Speed", Math.Abs(rigidBody.velocity.x));
         animator.SetBool("onGround", Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround));
     }
 
