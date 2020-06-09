@@ -3507,6 +3507,11 @@ PrefabInstance:
       propertyPath: rigidBody
       value: 
       objectReference: {fileID: 991534392}
+    - target: {fileID: 4322018434943623200, guid: 025cd762b5a519644b466106dc24f1f0,
+        type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4322018434943623201, guid: 025cd762b5a519644b466106dc24f1f0,
         type: 3}
       propertyPath: m_Offset.x

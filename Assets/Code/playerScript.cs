@@ -5,23 +5,20 @@ using System.Threading;
 
 public class playerScript : MonoBehaviour
 {
-    public Animator animator;
-    public Transform groundCheck;
-    public Rigidbody2D rigidBody;
+    private Animator animator;
 
-    private float maxSpeed = 5f;
-    private float jumpForce = 500f;
+    [SerializeField] float maxSpeed = default;
+    [SerializeField] float jumpForce = default;
     private bool facingRight = true;
     private bool grounded = false;
-
+    [SerializeField] Transform groundCheck = default;
     private float groundRadius = 0.2f;
-    private LayerMask whatIsGround;
+    [SerializeField] LayerMask whatIsGround;
     private Timer timer;
 
     private SpriteRenderer sprite;
     private float move;
     private Vector3 respawnPoint;
-
 
     private int lives;
     private int health;
@@ -51,6 +48,7 @@ public class playerScript : MonoBehaviour
         }
     }
 
+
     // Use this for initialization
     void Start()
     {
@@ -58,11 +56,9 @@ public class playerScript : MonoBehaviour
         health = 100;
         gems = 0;
 
-        rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         respawnPoint = transform.position;
-       
     }
 
     // Update is called once per frame
@@ -77,10 +73,10 @@ public class playerScript : MonoBehaviour
     {
         if (grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
-            rigidBody.AddForce(new Vector2(0f, jumpForce));
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
             grounded = false;
         }
-        rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
         if (move > 0 && !facingRight)
         {
@@ -101,7 +97,7 @@ public class playerScript : MonoBehaviour
             Application.LoadLevel(Application.loadedLevel);
         }
 
-        animator.SetFloat("Speed", Math.Abs(rigidBody.velocity.x));
+        animator.SetFloat("Speed", Math.Abs(GetComponent<Rigidbody2D>().velocity.x));
         animator.SetBool("onGround", Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround));
     }
 
@@ -117,7 +113,7 @@ public class playerScript : MonoBehaviour
     {
         if (col.gameObject.tag == "offWay")
         {
-            if(lives > 1)
+            if (lives > 1)
             {
                 lives -= 1;
                 transform.position = respawnPoint;
@@ -144,6 +140,7 @@ public class playerScript : MonoBehaviour
             }
         }
         if (col.gameObject.tag == "door")
+            // SceneManager.LoadScene("second_level");
             Application.LoadLevel("second_level");
         if (col.gameObject.tag == "lifePotion")
         {
@@ -162,7 +159,7 @@ public class playerScript : MonoBehaviour
         }
         if (col.gameObject.tag == "strawberry")
         {
-            if(health < 100)
+            if (health < 100)
                 health += 10;
             Destroy(col.gameObject);
         }
