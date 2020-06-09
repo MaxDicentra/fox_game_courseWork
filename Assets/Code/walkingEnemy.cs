@@ -9,6 +9,7 @@ public class walkingEnemy : MonoBehaviour
     public bool angry = false;
     Timer timer;
     private Animator animator;
+    private Rigidbody2D rigidbody;
 
     // Use this for initialization
     void Start()
@@ -16,6 +17,7 @@ public class walkingEnemy : MonoBehaviour
         animator = GetComponent<Animator>();
         TimerCallback callBack = new TimerCallback(setTurtleState);
         timer = new Timer(callBack, null, 0, 3000);
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void setTurtleState(object obj)
@@ -26,7 +28,7 @@ public class walkingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(speed * direction, GetComponent<Rigidbody2D>().velocity.y);
+        rigidbody.velocity = new Vector2(speed * direction, rigidbody.velocity.y);
         transform.localScale = new Vector3(direction, 1, 1);
         animator.SetBool("angry", angry);
     }

@@ -7,17 +7,19 @@ public class scull_enemy : MonoBehaviour
     public float speed = 1f;
     float direction = -1f;
     private Animator animator;
+    private Rigidbody2D rigidBody;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(speed * direction, GetComponent<Rigidbody2D>().velocity.y);
+        rigidBody.velocity = new Vector2(speed * direction, rigidBody.velocity.y);
         transform.localScale = new Vector3(direction, 1, 1);
     }
 

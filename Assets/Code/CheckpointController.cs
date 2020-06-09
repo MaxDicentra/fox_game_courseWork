@@ -26,7 +26,6 @@ public class CheckpointController : MonoBehaviour
     {
         if(col.tag == "fox_player")
         {
-            // sp.sprite = treeChecked;
             checkpointReached = true;
         }
     }
