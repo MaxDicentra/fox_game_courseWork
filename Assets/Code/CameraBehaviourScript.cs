@@ -5,13 +5,9 @@ public class CameraBehaviourScript : MonoBehaviour
 {
     private float dampTime = 0.15f;
     private Vector3 velocity = Vector3.zero;
-    private Transform target;
-    Camera camera;
+    [SerializeField] Transform target = default;
+    [SerializeField] Camera camera = default;
 
-    void Start()
-    {
-        camera = GetComponent<Camera>();
-    }
 
     // Update is called once per frame
     void Update()
