@@ -8,6 +8,8 @@ public class CameraBehaviourScript : MonoBehaviour
     [SerializeField] Transform target = default;
     [SerializeField] Camera camera = default;
     private float offset = 0.75f;
+    private float coordX = 0.5f;
+    private float coordY = 0.5f;
     Vector3 zero = Vector3.zero;
 
 
@@ -17,7 +19,7 @@ public class CameraBehaviourScript : MonoBehaviour
         if (target)
         {
             Vector3 point = camera.WorldToViewportPoint(new Vector3(target.position.x, target.position.y + offset, target.position.z));
-            Vector3 delta = new Vector3(target.position.x, target.position.y + offset, target.position.z) - camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, point.z));
+            Vector3 delta = new Vector3(target.position.x, target.position.y + offset, target.position.z) - camera.ViewportToWorldPoint(new Vector3(coordX, coordY, point.z));
             Vector3 destination = transform.position + delta;
 
 

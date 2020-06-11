@@ -54,7 +54,6 @@ public class playerScript : MonoBehaviour
         }
     }
 
-
     // Use this for initialization
     void Start()
     {
@@ -66,6 +65,8 @@ public class playerScript : MonoBehaviour
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
         respawnPoint = transform.position;
+
+        PlayerInstance.setInstance(this);
     }
 
     // Update is called once per frame
