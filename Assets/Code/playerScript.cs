@@ -9,6 +9,10 @@ public class playerScript : MonoBehaviour
     private const int TURTLE_HIT = 50;
     private const int SCULL_HIT = 20;
     private const int STRAWBERRY_ADDITION = 10;
+    private const int LIFE_POTION_ADDITION = 1;
+    private const int GEM_ADDITION = 1;
+    private const int START_LIVES_AMOUNT = 3;
+    private const int START_GEMS_AMOUNT = 0;
 
     private Animator animator;
 
@@ -57,9 +61,9 @@ public class playerScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        lives = 3;
+        lives = START_LIVES_AMOUNT ;
         health = MAX_HEALTH;
-        gems = 0;
+        gems = START_GEMS_AMOUNT;
 
         animator = GetComponent<Animator>();
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
@@ -133,7 +137,7 @@ public class playerScript : MonoBehaviour
                 Application.LoadLevel(Application.loadedLevel);
             }
         }
-        if (col.gameObject.tag == "checkpoint") // remove tag checkpoint controller 
+        if (col.GetComponent<CheckpointController>() != null)
         {
             respawnPoint = col.transform.position;
         }
@@ -155,12 +159,12 @@ public class playerScript : MonoBehaviour
         }
         if (col.gameObject.tag == "lifePotion")
         {
-            lives += 1;
+            lives += LIFE_POTION_ADDITION;
             col.gameObject.SetActive(false);
         }
         if (col.gameObject.tag == "gem")
         {
-            gems += 1;
+            gems += GEM_ADDITION;
             col.gameObject.SetActive(false);
         }
         if (col.gameObject.tag == "jam")
@@ -176,7 +180,7 @@ public class playerScript : MonoBehaviour
             }
             col.gameObject.SetActive(false);
         }
-        if (col.gameObject.tag == "scull_enemy")
+        if (col.GetComponent<scull_enemy>() != null)
         {
             if (health > SCULL_HIT)
             {
@@ -196,7 +200,7 @@ public class playerScript : MonoBehaviour
             }
             animator.SetInteger("isHurt", 1);
         }
-        if (col.gameObject.tag == "turtle_enemy")
+        if (col.GetComponent<walkingEnemy>() != null)
         {
             if (health > TURTLE_HIT)
             {
