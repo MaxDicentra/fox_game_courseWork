@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Specialized;
 
 public class CameraBehaviourScript : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class CameraBehaviourScript : MonoBehaviour
     [SerializeField] Transform target = default;
     [SerializeField] Camera camera = default;
     private float offset = 0.75f;
+    Vector3 zero = Vector3.zero;
 
 
     // Update is called once per frame
@@ -19,7 +21,7 @@ public class CameraBehaviourScript : MonoBehaviour
             Vector3 destination = transform.position + delta;
 
 
-            transform.position = Vector3.SmoothDamp(transform.position, destination, ref Vector3.zero, dampTime);
+            transform.position = Vector3.SmoothDamp(transform.position, destination, ref zero, dampTime);
         }
 
     }

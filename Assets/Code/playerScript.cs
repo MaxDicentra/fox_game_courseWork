@@ -155,17 +155,17 @@ public class playerScript : MonoBehaviour
         if (col.gameObject.tag == "lifePotion")
         {
             lives += 1;
-            Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
         }
         if (col.gameObject.tag == "gem")
         {
             gems += 1;
-            Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
         }
         if (col.gameObject.tag == "jam")
         {
             health = MAX_HEALTH;
-            Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
         }
         if (col.gameObject.tag == "strawberry")
         {
@@ -173,7 +173,7 @@ public class playerScript : MonoBehaviour
             {
                 health += STRAWBERRY_ADDITION; 
             }
-            Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
         }
         if (col.gameObject.tag == "scull_enemy")
         {
