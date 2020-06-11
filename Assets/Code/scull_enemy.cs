@@ -26,6 +26,8 @@ public class scull_enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "limiter" || col.gameObject.tag == "spikes")
+        {
             direction *= -1f;
+        }
     }
 }

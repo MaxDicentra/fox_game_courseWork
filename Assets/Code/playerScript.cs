@@ -5,13 +5,18 @@ using System.Threading;
 
 public class playerScript : MonoBehaviour
 {
+    private const int MAX_HEALTH = 100;
+    private const int TURTLE_HIT = 50;
+    private const int SCULL_HIT = 20;
+    private const int STRAWBERRY_ADDITION = 10;
+
     private Animator animator;
 
     [SerializeField] Rigidbody2D rigidBody;
     [SerializeField] float maxSpeed = default;
     [SerializeField] float jumpForce = default;
-    private bool facingRight = true;
-    private bool grounded = false;
+    private bool isFacingRight = true;
+    [SerializeField] bool isGrounded = false;
     [SerializeField] Transform groundCheck = default;
     private float groundRadius = 0.2f;
     [SerializeField] LayerMask whatIsGround;
@@ -54,7 +59,7 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         lives = 3;
-        health = 100;
+        health = MAX_HEALTH;
         gems = 0;
 
         animator = GetComponent<Animator>();
@@ -66,25 +71,27 @@ public class playerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        animator.SetBool("grounded",isGrounded);
         move = Input.GetAxis("Horizontal");
         killPain();
     }
 
     void Update()
     {
-        if (grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        if (isGrounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
             rigidBody.AddForce(new Vector2(0f, jumpForce));
-            grounded = false;
+            isGrounded = false;
+            animator.SetBool("grounded", isGrounded);
         }
         rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
 
-        if (move > 0 && !facingRight)
+        if (move > 0 && !isFacingRight)
         {
             Flip();
         }
-        else if (move < 0 && facingRight)
+        else if (move < 0 && isFacingRight)
         {
             Flip();
         }
@@ -105,7 +112,7 @@ public class playerScript : MonoBehaviour
 
     void Flip()
     {
-        facingRight = !facingRight;
+        isFacingRight = !isFacingRight;
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
@@ -125,7 +132,7 @@ public class playerScript : MonoBehaviour
                 Application.LoadLevel(Application.loadedLevel);
             }
         }
-        if (col.gameObject.tag == "checkpoint")
+        if (col.gameObject.tag == "checkpoint") // remove tag checkpoint controller 
         {
             respawnPoint = col.transform.position;
         }
@@ -142,8 +149,9 @@ public class playerScript : MonoBehaviour
             }
         }
         if (col.gameObject.tag == "door")
-            // SceneManager.LoadScene("second_level");
+        {
             Application.LoadLevel("second_level");
+        }
         if (col.gameObject.tag == "lifePotion")
         {
             lives += 1;
@@ -156,20 +164,22 @@ public class playerScript : MonoBehaviour
         }
         if (col.gameObject.tag == "jam")
         {
-            health = 100;
+            health = MAX_HEALTH;
             Destroy(col.gameObject);
         }
         if (col.gameObject.tag == "strawberry")
         {
-            if (health < 100)
-                health += 10;
+            if (health < MAX_HEALTH)
+            {
+                health += STRAWBERRY_ADDITION; 
+            }
             Destroy(col.gameObject);
         }
         if (col.gameObject.tag == "scull_enemy")
         {
-            if (health > 20)
+            if (health > SCULL_HIT)
             {
-                health -= 20;
+                health -= SCULL_HIT;
             }
             else
             {
@@ -187,9 +197,9 @@ public class playerScript : MonoBehaviour
         }
         if (col.gameObject.tag == "turtle_enemy")
         {
-            if (health > 50)
+            if (health > TURTLE_HIT)
             {
-                health -= 50;
+                health -= TURTLE_HIT;
             }
             else
             {

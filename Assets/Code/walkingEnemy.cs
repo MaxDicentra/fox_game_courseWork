@@ -6,7 +6,7 @@ public class walkingEnemy : MonoBehaviour
 {
     private float speed = 1f;
     private float direction = -1f;
-    private bool angry = false;
+    private bool isAngry = false;
     private Timer timer;
     private Animator animator;
     private Rigidbody2D rigidbody;
@@ -22,7 +22,7 @@ public class walkingEnemy : MonoBehaviour
 
     void setTurtleState(object obj)
     {
-        angry = !angry;
+        isAngry = !isAngry;
     }
 
     // Update is called once per frame
@@ -30,18 +30,15 @@ public class walkingEnemy : MonoBehaviour
     {
         rigidbody.velocity = new Vector2(speed * direction, rigidbody.velocity.y);
         transform.localScale = new Vector3(direction, 1, 1);
-        animator.SetBool("angry", angry);
+        animator.SetBool("angry", isAngry);
     }
 
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "limiter" || col.gameObject.tag == "spikes")
-            direction *= -1f;
-    }
-
-    void OnCollision2D(Collision2D col)
-    {
-       
+        {
+            direction *= -1f; 
+        }
     }
 }
