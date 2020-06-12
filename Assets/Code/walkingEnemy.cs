@@ -36,7 +36,7 @@ public class walkingEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "limiter" || col.gameObject.tag == "spikes")
+        if (col.gameObject.CompareTag("limiter") || col.gameObject.CompareTag("spikes"))
         {
             direction *= -1f; 
         }

@@ -13,7 +13,7 @@ public class textScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { // check
         playerInfo.text = "Lives: " + START_LIVES_AMOUNT + '\n' + "Gems: " + START_GEMS_AMOUNT + '\n' + "Health: " + MAX_HEALTH;
     }
 

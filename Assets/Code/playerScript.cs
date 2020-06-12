@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class playerScript : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class playerScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        lives = START_LIVES_AMOUNT ;
+        lives = START_LIVES_AMOUNT;
         health = MAX_HEALTH;
         gems = START_GEMS_AMOUNT;
 
@@ -77,7 +78,7 @@ public class playerScript : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-        animator.SetBool("grounded",isGrounded);
+        animator.SetBool("grounded", isGrounded);
         move = Input.GetAxis("Horizontal");
         killPain();
     }
@@ -125,60 +126,68 @@ public class playerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "offWay")
+        switch (col.gameObject.tag)
         {
-            if (lives > 1)
-            {
-                lives -= 1;
-                transform.position = respawnPoint;
-            }
-            else
-            {
-                Application.LoadLevel(Application.loadedLevel);
-            }
+            case "offWay" when lives > 1:
+                {
+                    lives -= 1;
+                    transform.position = respawnPoint;
+                }
+                break;
+            case "offWay":
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                break;
+            case "spikes" when lives > 1:
+                {
+                    lives -= 1;
+                    transform.position = respawnPoint;
+                }
+                break;
+            case "spikes":
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                break;
+            case "door":
+                {
+                    SceneManager.LoadScene("second_level", LoadSceneMode.Single);
+
+                }
+                break;
+            case "lifePotion":
+                {
+                    lives += LIFE_POTION_ADDITION;
+                    col.gameObject.SetActive(false);
+                }
+                break;
+            case "gem":
+                {
+                    gems += GEM_ADDITION;
+                    col.gameObject.SetActive(false);
+                }
+                break;
+            case "jam":
+                {
+                    health = MAX_HEALTH;
+                    col.gameObject.SetActive(false);
+                }
+                break;
+            case "strawberry":
+                {
+                    if (health < MAX_HEALTH)
+                    {
+                        health += STRAWBERRY_ADDITION;
+                    }
+                    col.gameObject.SetActive(false);
+                }
+                break;
         }
+
         if (col.GetComponent<CheckpointController>() != null)
         {
             respawnPoint = col.transform.position;
-        }
-        if (col.gameObject.tag == "spikes")
-        {
-            if (lives > 1)
-            {
-                lives -= 1;
-                transform.position = respawnPoint;
-            }
-            else
-            {
-                Application.LoadLevel(Application.loadedLevel);
-            }
-        }
-        if (col.gameObject.tag == "door")
-        {
-            Application.LoadLevel("second_level");
-        }
-        if (col.gameObject.tag == "lifePotion")
-        {
-            lives += LIFE_POTION_ADDITION;
-            col.gameObject.SetActive(false);
-        }
-        if (col.gameObject.tag == "gem")
-        {
-            gems += GEM_ADDITION;
-            col.gameObject.SetActive(false);
-        }
-        if (col.gameObject.tag == "jam")
-        {
-            health = MAX_HEALTH;
-            col.gameObject.SetActive(false);
-        }
-        if (col.gameObject.tag == "strawberry")
-        {
-            if (health < MAX_HEALTH)
-            {
-                health += STRAWBERRY_ADDITION; 
-            }
-            col.gameObject.SetActive(false);
         }
         if (col.GetComponent<scull_enemy>() != null)
         {
@@ -195,7 +204,7 @@ public class playerScript : MonoBehaviour
                 }
                 else
                 {
-                    Application.LoadLevel(Application.loadedLevel);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
             animator.SetInteger("isHurt", 1);
@@ -215,7 +224,7 @@ public class playerScript : MonoBehaviour
                 }
                 else
                 {
-                    Application.LoadLevel(Application.loadedLevel);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
 
             }
