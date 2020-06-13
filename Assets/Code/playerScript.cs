@@ -34,6 +34,7 @@ public class playerScript : MonoBehaviour
     private int lives;
     private int health;
     private int gems;
+    [SerializeField] int jumpsAmount = 0;
 
     public int Lives
     {
@@ -78,6 +79,10 @@ public class playerScript : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        if (isGrounded)
+        {
+            jumpsAmount = 0;
+        }
         animator.SetBool("grounded", isGrounded);
         move = Input.GetAxis("Horizontal");
         killPain();
@@ -85,11 +90,13 @@ public class playerScript : MonoBehaviour
 
     void Update()
     {
-        if (isGrounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        // if ((isGrounded || jumpsAmount < 2)  && Input.GetAxis("Vertical") > 0)
+        if ((isGrounded || jumpsAmount < 2)  && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
             rigidBody.AddForce(new Vector2(0f, jumpForce));
             isGrounded = false;
             animator.SetBool("grounded", isGrounded);
+            jumpsAmount++;
         }
         rigidBody.velocity = new Vector2(move * maxSpeed, rigidBody.velocity.y);
 
